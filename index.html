@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Cardápio Online</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+        <img src="seu_logo.png" alt="Logo">
+    </div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <div class="side-menu" id="sideMenu">
+        <ul>
+            <li><a href="javascript:void(0);" onclick="abrirModalContato()">Contato</a></li>
+            <li><a href="#lanches">Lanches</a></li>
+            <li><a href="#refrigerantes">Bebidas</a></li>
+        </ul>
+    </div>
+    <ul class="menu-desktop">
+        <li><a href="javascript:void(0);" onclick="abrirModalContato()">Contato</a></li>
+        <li><a href="#lanches">Lanches</a></li>
+        <li><a href="#refrigerantes">Bebidas</a></li>
+    </ul>
+</nav>
+
+<div class="image-carousel">
+  <img src="https://th.bing.com/th/id/OIP.DPQH_OmVseKEOG8CnsNg8AHaE8?rs=1&pid=ImgDetMain" alt="Imagem 1" class="carousel-image">
+  <img src="https://th.bing.com/th/id/OIP.wJBFF6mnM3rgFhiVBbPr8AHaHa?rs=1&pid=ImgDetMain" alt="Imagem 2" class="carousel-image" style="display:none;">
+  <img src="https://th.bing.com/th/id/OIP.UMtaWrRZoRBOkj_9PGbepAHaF4?w=690&h=548&rs=1&pid=ImgDetMain" alt="Imagem 3" class="carousel-image" style="display:none;">
+</div>
+
+
+
+
+
+    <main>
+        <div id="notification" class="notification"></div>
+
+        <!-- Seção de Açaí -->
+        <h2 id="titulo-acai" style="display: none;">Açaí</h2>
+        <section id="acai">
+        </section>
+
+        <!-- Seção de Espetinhos -->
+        <h2 id="titulo-espetinho" style="display: none;">Espetinhos</h2>
+        <section id="espetinhos">
+        </section>
+
+
+        <h2 id="titulo-lanche" style="display: none;">Lanches</h2>
+        <section id="lanches">
+        </section>
+
+        <h2 id="titulo-refrigerante" style="display: none;">Bebidas</h2>
+        <section id="refrigerantes">
+        </section>
+
+        <section class="cart-container" >
+            <h2>Carrinho</h2>
+            <ul id="cart-list"></ul>
+            <p id="delivery-fee" style="display: none;">5Taxa de Entrega: R$ 5,00</p>
+            <p id="total">Total: R$ 0.00</p>
+        </section>
+    </main>
+        <div id="additional-info">
+            <h3>Informações Adicionais do Pedido</h3>
+            <textarea id="info-input" placeholder="Insira informações adicionais do seu pedido"></textarea>
+
+            <div class="input-field">
+              <label for="nome">Nome:</label>
+              <input type="text" id="nome" required>
+            </div>
+            
+            <div class="input-field">
+              <label for="telefone">Telefone:</label>
+              <input type="text" id="telefone" required>
+            </div>
+            
+            <div id="address-info">
+                <h3>Endereço de Entrega</h3>
+            
+                <div class="address-row">
+                  <label for="cep">CEP:</label>
+                  <input type="text" id="cep" placeholder="CEP">
+                </div>
+            
+                <div class="address-row">
+                  <label for="logradouro">Logradouro:</label>
+                  <input type="text" id="logradouro" required>
+                </div>
+
+                <div class="address-row">
+                  <label for="numero">Número:</label>
+                  <input type="text" id="numero" required>
+                </div>
+            
+                <div class="address-row">
+                  <label for="bairro">Bairro:</label>
+                  <input type="text" id="bairro" required>
+                </div>
+            
+                <div class="address-row">
+                  <label for="cidade">Cidade:</label>
+                  <input type="text" id="cidade" required>
+                </div>
+            
+                <div class="address-row">
+                  <label for="ponto-referencia">Ponto de Referência:</label>
+                  <input type="text" id="ponto-referencia">
+                </div>
+            </div>
+
+            <div id="payment-info">
+              <h3>Forma de Pagamento</h3>
+
+              <label for="payment-method">Escolha a forma de pagamento:</label>
+              <select id="payment-method" onchange="handlePaymentMethod()">
+                  <option value="pix">Pix</option>
+                  <option value="credit-card">Cartão de Crédito</option>
+                  <option value="debit-card">Cartão de Débito</option>
+                  <option value="money">Dinheiro</option>
+              </select>
+
+              <div id="troco-container" style="display: none;">
+                  <label for="troco">Troco para:</label>
+                  <input type="text" id="troco" placeholder="Valor do troco">
+              </div>
+            </div>
+        </div>
+        <br>
+  <!-- Adicione este botão onde desejar no seu HTML -->
+        <!-- Antes de fechar a tag <body> -->
+        <div class="centralizar-botao">
+          <button onclick="finalizarPedido()" class="finalizar-pedido-btn">Finalizar Pedido</button>
+        </div>
+
+
+        <div id="modal-contato" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="fecharModalContato()">&times;</span>
+              <p>Entre em contato conosco:</p>
+              <p>Telefone: Seu número de telefone</p>
+            </div>
+        </div>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="fecharModal()">&times;</span>
+              <div id="modal-content">
+                <!-- O conteúdo do modal será preenchido dinamicamente com JavaScript -->
+              </div>
+            </div>
+        </div>
+  <script src="script.js"></script>
+</body>
+</html>

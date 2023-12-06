@@ -1,0 +1,465 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+  
+  body {
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+  }
+  
+  /* Navegação */
+  nav {
+    height: 60px;
+    z-index: 1000; /* Um valor alto para garantir que o menu fique acima dos outros elementos */
+    position: relative; /* Necessário para que o z-index funcione */
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+  }
+  
+  .navbar .logo {
+    flex-grow: 1;
+  }
+  
+  /* Menu para desktop */
+  .menu-desktop {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+  }
+  
+  .menu-desktop li {
+    margin-right: 20px;
+  }
+  
+  .menu-desktop li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* Botão do menu hambúrguer - escondido em telas grandes */
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  /* Menu lateral - para dispositivos móveis */
+  .side-menu {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #3498db;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+    transition: right 0.3s ease;
+    display: none; /* Escondido por padrão */
+  }
+  
+  .side-menu ul {
+    list-style-type: none;
+    padding: 20px 0;
+  }
+  
+  .side-menu ul li a {
+    display: block;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+  }
+  
+  .side-menu ul li a:hover {
+    background-color: #2980b9;
+  }
+  
+  
+  .image-carousel {
+    width: 1000px;
+    height: 250px;
+    margin-top: 20px; /* Margem superior */
+    margin-left: auto; /* Centraliza horizontalmente */
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
+    border-radius: 15px; /* Bordas arredondadas */
+    overflow: hidden; /* Oculta as partes das imagens que excedem o tamanho do carrossel */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.158); /* Adiciona uma sombra para realçar */
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que as imagens cubram a área do carrossel sem distorcer */
+    display: none; /* Inicialmente esconde todas as imagens */
+  }
+  
+  
+  /* Layout principal e seções */
+  main {
+    width: 900px;
+    margin: 20px auto;
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    color: #3498db; /* Cor do texto */
+    font-size: 28px; /* Tamanho do texto */
+    font-weight: bold; /* Negrito */
+    text-align: center; /* Centralizado */
+    margin-top: 30px;
+    margin-bottom: 30px; /* Espaço abaixo do título */
+    padding-bottom: 10px; /* Espaço interno abaixo do título */
+    border-bottom: 2px solid #3498db; /* Linha abaixo do título */
+    letter-spacing: 1.5px; /* Espaçamento entre as letras */
+    text-transform: uppercase; /* Texto em maiúsculas */
+    text-shadow: 1px 1px 2px #888; /* Sombra no texto */
+  }
+  
+  
+  /* Estilo dos itens de menu e do carrinho */
+  .cart-container, .visible{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: space-around;
+  }
+  
+  
+  .menu-item, .cart-container {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .cart-container h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    letter-spacing: 1px;
+    color: #3498db;
+    margin-bottom: 15px;
+  }
+  
+  /* Estilo dos itens do carrinho */
+  #cart-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  #cart-list li {
+    line-height: 20px;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo do total e da taxa de entrega */
+  #total, #delivery-fee {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+  }
+  
+  /* Botões no carrinho */
+  .cart-container .btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .cart-container .btn:hover {
+    background-color: #2980b9;
+  }
+  
+  .menu-item img {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    border-radius: 13px;
+    margin-bottom: 3px;
+  }
+  
+  .centralizar-botao {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* ou qualquer valor que você desejar para espaçamento superior */
+  }
+  
+  
+  /* Botões */
+  .add-to-cart-btn, .remove-item-btn, .finalizar-pedido-btn, #submit-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  #submit-btn {
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  .add-to-cart-btn:hover, .finalizar-pedido-btn:hover, #submit-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  .remove-item-btn {
+    background-color: #e74c3c;
+    border-radius: 25px;
+  }
+  
+  .notification {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #3498db;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: top 0.5s ease;
+  }
+  
+  .notification.show {
+    display: block;
+    top: 40px;
+  }
+  
+  /* Formulários e entrada de dados */
+  input[type="text"], textarea, select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .input-field {
+    margin-bottom: 15px;
+  }
+  
+  /* Estilos específicos para seções adicionais */
+  #additional-info, .modal, .modal-content {
+    width: 900px; /* Mesma largura que a main */
+    margin: 20px auto; /* Centralização horizontal */
+    background-color: #f2f2f2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .modal {
+    display: none; /* Inicialmente escondido */
+    position: fixed; /* Fixa a posição na tela */
+    z-index: 1; /* Coloca o modal sobre o resto do conteúdo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Adiciona barra de rolagem caso o conteúdo seja maior que o modal */
+    background-color: rgba(0,0,0,0.4); /* Fundo semi-transparente */
+  }
+  
+  .modal-content {
+    background-color: #fefefe; /* Fundo branco para o conteúdo */
+    margin: 15% auto; /* Centraliza verticalmente e deixa uma margem superior */
+    padding: 20px;
+    border: 1px solid #888;
+  border-radius: 10px;
+    width: 500px;
+     /* Largura do modal */
+  }
+  
+  /* Botão para fechar o modal */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Estilos para os detalhes do pedido no modal */
+  .order-details {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .order-details h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #3498db;
+  }
+  
+  .order-details p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .order-details strong {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .order-details hr {
+    border: 0;
+    height: 1px;
+    background-color: #ccc;
+    margin: 15px 0;
+  }
+  
+  /* Estilo para o botão Pedir */
+  .finalizar-pedido-btn {
+    background-color: #28a745; /* Verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .finalizar-pedido-btn:hover {
+    background-color: #218838; /* Verde um pouco mais escuro */
+  }
+  
+  /* Estilo para o botão Cancelar */
+  .cancelar-pedido-btn {
+    background-color: #dc3545; /* Vermelho */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .cancelar-pedido-btn:hover {
+    background-color: #c82333; /* Vermelho um pouco mais escuro */
+  }
+  
+  /* Responsividade para dispositivos móveis */
+  @media only screen and (max-width: 600px) {
+    .menu-toggle {
+      display: block;
+    }
+  
+    .menu-desktop {
+      display: none;
+    }
+  
+    .side-menu {
+      display: block;
+    }
+  
+  
+    .image-carousel {
+      width: 95%;
+      height: 150px;
+      margin: 10px;
+    }
+      .visible {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    
+      .menu-item {
+        flex-basis: calc(100% - 20px); /* Ocupa toda a largura com a margem */
+        margin-right: 0;
+      }
+    
+      main {
+          width: 100%; /* Altera para 100% para dispositivos móveis */
+          padding: 10px;
+        }
+  
+        .cart-container {
+      padding: 10px;
+    }
+  
+    .cart-container h2 {
+      font-size: 20px;
+    }
+  
+      #additional-info {
+  
+    width: 100%; /* Definindo a mesma largura que a 'main' */
+    margin: 0 auto; /* Centralizando horizontalmente */
+  }
+  
+  .modal-content {
+      width: 90%; /* Reduz a largura do conteúdo do modal */
+      margin: 10% auto; /* Centraliza o modal na tela */
+    }
+  
+    .order-details {
+      padding: 8px; /* Reduz o preenchimento dos detalhes do pedido */
+    }
+  
+    .order-details h2 {
+      font-size: 20px; /* Diminui o tamanho do título */
+    }
+  
+    .order-details p {
+      font-size: 14px; /* Reduz o tamanho do texto */
+    }
+  
+    .order-details hr {
+      margin: 10px 0; /* Ajusta a margem do separador */
+    }
+    }
